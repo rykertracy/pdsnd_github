@@ -75,7 +75,7 @@ def get_filters():
 
 def load_data(city, month, day):
     """
-    Loads data for the specified city and filters by month and day if 
+    Loads data for the specified city and filters by month and day, if 
     applicable.
     Args:
         (str) city - name of the city to analyze
@@ -182,7 +182,7 @@ def trip_duration_stats(df):
 
 
 def user_stats(df):
-    """Displays statistics on bikeshare users."""
+    """Displays statistics on bikeshare users. \n Only applies to certain cities."""
 
     print('\nCalculating User Stats...\n')
     start_time = time.time()
