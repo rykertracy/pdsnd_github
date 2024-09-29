@@ -118,28 +118,27 @@ def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
-    
-    # display the most common month
-    df['Month'] = df['Start Time'].dt.month_name() #REFERENCE 1
-    if month is None:
-        popular_month = str(df.Month.mode().iloc[0]) #REFERENCE 2
-        print('In the city of {}, {} is the most common usage month...'.format(city.title(),popular_month))
-    
-    # display the most common day of week
-    df['Day'] = df['Start Time'].dt.day_name() #REFERENCE 1
-    popular_day = str(df.Day.mode().iloc[0])
-    print('{} is the most common usage day...'.format(popular_day))
-    
-    # display the most common start hour
+
+    # Extract month, day, and hour from Start Time
+    df['Month'] = df['Start Time'].dt.month_name()
+    df['Day'] = df['Start Time'].dt.day_name()
     df['Hour'] = df['Start Time'].dt.hour
-    
-    # find the most common hour (from 0 to 23)
-    popular_hour = int(df.Hour.mode().iloc[0])
-    print('And {}:00 is the most common usage hour'.format(popular_hour))
-    
-    
-    print("\n...This calculation took %s seconds." % round((time.time() - start_time),5))
-    print('-'*40)
+
+    # Most common month (only if month is None)
+    if month is None:
+        popular_month = df['Month'].mode()[0]
+        print(f'In the city of {city.title()}, {popular_month} is the most common usage month...')
+
+    # Most common day
+    popular_day = df['Day'].mode()[0]
+    print(f'{popular_day} is the most common usage day...')
+
+    # Most common hour
+    popular_hour = df['Hour'].mode()[0]
+    print(f'And {popular_hour}:00 is the most common usage hour')
+
+    print(f"\n...This calculation took {round(time.time() - start_time, 5)} seconds.")
+    print('-' * 40)
     
     return
 
@@ -183,31 +182,29 @@ def trip_duration_stats(df):
 
 def user_stats(df):
     """Displays statistics on bikeshare users. \n Only applies to certain cities."""
-
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
     # Display counts of user types
-    print('The user types are: \n' + df['User Type'].value_counts().to_string(header=False))
+    print('The user types are:\n' + df['User Type'].value_counts().to_string(header=False))
 
     if city.lower() == 'washington':
-        print('\nThe data from Washington D.C. does not consist of gender nor birth year.')
+        print('\nThe data from Washington D.C. does not contain gender or birth year information.')
     else:
-        # Display counts of gender
-        # Display Gender NaN values
-        print('\nThere are '+ str(df['Gender'].isnull().sum()) + ' unavailable gender values')
-        print('The gender counts are: \n{}'.format(df['Gender'].value_counts().to_string(header=False)))
-        
-        # Display earliest, most recent, and most common year of birth
-        # DIsplay Birth Year NaN values
-        print('\nThere are {} unavailable Birth Year values'.format(str(df['Birth Year'].isnull().sum())))
-        print('The earliest user birth year is: {}'.format(str(int(df['Birth Year'].dropna(axis=0).sort_values().iloc[0])))) #Omits Birth Year rows with NaN values
-        print('\nThe most recent birth year is: {}'.format(str(int(df['Birth Year'].dropna(axis=0).sort_values(ascending=False).iloc[0])))) #Sort order changed from previous line
-        print('The most common birth year is:{}'.format(df['Birth Year'].dropna(axis=0).astype('int64').mode().to_string()[4:])) #REFERENCE 4
-    
-    
-    print("\n...This calculation took %s seconds." % round((time.time() - start_time),5))
-    print('-'*40)
+        # Display counts of gender and NaN values
+        print(f'\nThere are {df["Gender"].isnull().sum()} unavailable gender values')
+        print('The gender counts are:\n' + df['Gender'].value_counts().to_string(header=False))
+
+        # Display birth year statistics, handling NaN values
+        birth_years = df['Birth Year'].dropna()
+
+        print(f'\nThere are {df["Birth Year"].isnull().sum()} unavailable birth year values')
+        print(f'The earliest birth year is: {int(birth_years.min())}')
+        print(f'The most recent birth year is: {int(birth_years.max())}')
+        print(f'The most common birth year is: {int(birth_years.mode()[0])}')
+
+    print(f"\n...This calculation took {round(time.time() - start_time, 5)} seconds.")
+    print('-' * 40)
     
 def raw_data(df):
     """
