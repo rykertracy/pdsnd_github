@@ -1,17 +1,32 @@
->**Note**: Please **fork** the current Udacity repository so that you will have a **remote** repository in **your** Github account. Clone the remote repository to your local machine. Later, as a part of the project "Post your Work on Github", you will push your proposed changes to the remote repository in your Github account.
-
 ### Date created
-Include the date you created this project and README file.
+September 29, 2024
 
-### Project Title
-Replace the Project Title
+# **Bikeshare Analysis**
 
-### Description
-Describe what your project is about and what it does
+## Description
+Bikeshare is a transportation service in which patrons can rent pedal bicycles to travel around a city. Data for three cities is analyzed in this project: Chicago, New York City, and Washington D.C. When the python script is ran, it will ask a user for analysis parameters/constraints such as **city**,**month**, and **day**. 
+
+The script will then calculate statistics and display (as text) for the following:
+    
+    1. Most frequent times of travel.
+    2. Most popular start/stop stations and trips.
+    3. Trip duration.
+    4. User statistics (city-dependent).
+
+User will also have the option to display raw data, if desired.
 
 ### Files used
-Include the files used
+This project relies on three python packages:
+    1. time
+    2. pandas
+    3. numpy
+
+Three data files are required to run this script as-is, and are not provided in this repo:
+    1. chicago.csv
+    2. new_york_city.csv
+    3. washington.csv
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
-
+Bikeshare data is provided by: [Motivate](https://motivateco.com).
+Python starter template was provided by Udacity [Udacity](https://udacity.com)
+Repository template forked from: [Udacity](https://github.com/udacity/pdsnd_github)
