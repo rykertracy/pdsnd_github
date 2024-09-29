@@ -27,6 +27,8 @@ Three data files are required to run this script as-is, and are not provided in 
     3. washington.csv
 
 ### Credits
-Bikeshare data is provided by: [Motivate](https://motivateco.com).\n
-Python starter template was provided by [Udacity](https://udacity.com)\n
+Bikeshare data is provided by: [Motivate](https://motivateco.com).
+
+Python starter template was provided by [Udacity](https://udacity.com)
+
 Repository template forked from: [Udacity](https://github.com/udacity/pdsnd_github)
