@@ -182,31 +182,30 @@ def trip_duration_stats(df):
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
-
+    
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
     # Display counts of user types
-    print('The user types are: \n' + df['User Type'].value_counts().to_string(header=False))
+    print('The user types are:\n' + df['User Type'].value_counts().to_string(header=False))
 
     if city.lower() == 'washington':
-        print('\nThe data from Washington D.C. does not consist of gender nor birth year.')
+        print('\nThe data from Washington D.C. does not contain gender or birth year information.')
     else:
-        # Display counts of gender
-        # Display Gender NaN values
-        print('\nThere are '+ str(df['Gender'].isnull().sum()) + ' unavailable gender values')
-        print('The gender counts are: \n{}'.format(df['Gender'].value_counts().to_string(header=False)))
-        
-        # Display earliest, most recent, and most common year of birth
-        # DIsplay Birth Year NaN values
-        print('\nThere are {} unavailable Birth Year values'.format(str(df['Birth Year'].isnull().sum())))
-        print('The earliest user birth year is: {}'.format(str(int(df['Birth Year'].dropna(axis=0).sort_values().iloc[0])))) #Omits Birth Year rows with NaN values
-        print('\nThe most recent birth year is: {}'.format(str(int(df['Birth Year'].dropna(axis=0).sort_values(ascending=False).iloc[0])))) #Sort order changed from previous line
-        print('The most common birth year is:{}'.format(df['Birth Year'].dropna(axis=0).astype('int64').mode().to_string()[4:])) #REFERENCE 4
-    
-    
-    print("\n...This calculation took %s seconds." % round((time.time() - start_time),5))
-    print('-'*40)
+        # Display counts of gender and NaN values
+        print(f'\nThere are {df["Gender"].isnull().sum()} unavailable gender values')
+        print('The gender counts are:\n' + df['Gender'].value_counts().to_string(header=False))
+
+        # Display birth year statistics, handling NaN values
+        birth_years = df['Birth Year'].dropna()
+
+        print(f'\nThere are {df["Birth Year"].isnull().sum()} unavailable birth year values')
+        print(f'The earliest birth year is: {int(birth_years.min())}')
+        print(f'The most recent birth year is: {int(birth_years.max())}')
+        print(f'The most common birth year is: {int(birth_years.mode()[0])}')
+
+    print(f"\n...This calculation took {round(time.time() - start_time, 5)} seconds.")
+    print('-' * 40)
     
 def raw_data(df):
     """
